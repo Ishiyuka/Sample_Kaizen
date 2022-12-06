@@ -2,6 +2,21 @@
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
+  
+  <div class="field">
+    <%= f.label :icon %>
+    <%= f.file_field :icon %>
+  </div>
+
+  <div class="field">
+    <%= f.label :name %> <br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :department %> <br />
+    <%= f.text_field :department %>
+  </div>
 
   <div class="field">
     <%= f.label :email %><br />
@@ -27,3 +42,5 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
+<%= link_to 'ゲスト（一般）ログイン', users_guest_sign_in_path, method: :post %><br>
+<%= link_to 'ゲスト（管理者）ログイン', users_guest_admin_sign_in_path, method: :post %>

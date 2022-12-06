@@ -75,8 +75,12 @@ gem 'devise'
 gem 'devise-i18n'
 
 # 管理者画面
-# gem 'rails_admin', '~> 3.0'
-# gem 'cancancan'
+gem 'rails_admin', '~> 3.0'
+gem 'cancancan'
 
 #検索機能
 gem 'ransack'
+
+#画像アップロード
+gem 'carrierwave', '>= 3.0.0.beta', '< 4.0'
+gem 'mini_magick'
