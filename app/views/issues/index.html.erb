@@ -1,20 +1,28 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Issues</h1>
+
+<%= search_form_for @issue_q, url: search_issues_path do |f| %>
+  <%= f.label :title_cont, '課題名' %>
+  <%= f.search_field :title_cont %>
+  <%= f.submit '検索' %>
+<% end %>
+
+<%= search_form_for @issue_q, url: search_issues_path do |f| %>
+  <%= f.label :status, '進捗:' %>
+  <%= f.radio_button :status_eq, '0' %>未完了
+  <%= f.radio_button :status_eq, '1' %>進行中
+  <%= f.radio_button :status_eq, '2' %>完了
+  <%= f.submit '検索' %>
+<% end %>
 
 <table>
   <thead>
     <tr>
+      <th></th>
+      <th>Team</th>
       <th>Title</th>
-      <th>Detail</th>
-      <th>Image</th>
-      <th>Cause</th>
-      <th>Goal</th>
-      <th>Gap</th>
-      <th>Due date at</th>
-      <th>Priority</th>
-      <th>Status</th>
-      <th>Done flag</th>
+      <th><%= sort_link(@issue_q, :due_date_at, "期限日") %></th>
+      <th><%= sort_link(@issue_q, :priority, "優先度") %></th>
+      <th><%= sort_link(@issue_q, :status, "進捗") %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -22,19 +30,19 @@
   <tbody>
     <% @issues.each do |issue| %>
       <tr>
-        <td><%= issue.title %></td>
-        <td><%= issue.detail %></td>
-        <td><%= issue.image %></td>
-        <td><%= issue.cause %></td>
-        <td><%= issue.goal %></td>
-        <td><%= issue.gap %></td>
-        <td><%= issue.due_date_at %></td>
-        <td><%= issue.priority %></td>
-        <td><%= issue.status %></td>
-        <td><%= issue.done_flag %></td>
-        <td><%= link_to 'Show', issue %></td>
-        <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
-        <td><%= link_to 'Destroy', issue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if issue.done_flag == true %>
+          <td> 完了 </td>
+        <% else %>
+          <td>未完了</td>
+        <% end %>
+          <td><%= issue.team.name %></td>
+          <td><%= issue.title %></td>
+          <td><%= issue.due_date_at %></td>
+          <td><%= issue.priority %></td>
+          <td><%= issue.status %></td>
+          <td><%= link_to 'Show', issue %></td>
+          <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
+          <td><%= link_to 'Destroy', issue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
