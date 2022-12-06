@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'assigns/index'
+  get 'assigns/create'
+  get 'assigns/destroy'
+  resources :plans
+  resources :teams
+  resources :issues
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
   root 'homes#index'
